@@ -1,3 +1,20 @@
+"""
+This is service module!
+
+In here, analyze img sytle!
+
+Logic steps like below!
+
+- init model
+
+- img to tensor
+
+- input file to tensor
+
+- analyze
+
+- serialization
+"""
 from flask import current_app
 import ssl
 import torch
@@ -11,6 +28,24 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 
 def _init_model(device):
+    """
+    Title : _init_model
+    
+    This is def for init model
+
+    Get model state dict from mdel_best.pth.tar and device,
+
+    Return setting model
+
+    Args :
+        - device (str) : What computer use for deep learning
+    
+    Returns :
+        - model (object) : Setting model
+    
+    Raise :
+        - Exception : If can'n load model!
+    """
     try:
         model = gcn_resnet101(num_classes=10, t=0.03, adj_file="src/data/custom_adj_final.pkl", pretrained=False)
 
@@ -26,6 +61,22 @@ def _init_model(device):
 
 
 def _img_to_tensor(device, model, img_path:str):
+    """
+    Title : _img_to_tensor
+    
+    This is tranform img to tensor
+
+    Args :
+        - device (str) : What computer use for deep learning
+        - model (model) : setting model
+        - img_path (str) : saved img path
+    
+    Returns :
+        - feature_var (tensor) : transfomred img tenssor
+    
+    Raise :
+        - Exception : If can't transfom img!
+    """
     try :
         transforms_test = transforms.Compose([
             Warp(224),
@@ -48,6 +99,20 @@ def _img_to_tensor(device, model, img_path:str):
 
 
 def _input_to_tensor(device):
+    """
+    Title : _input_to_tensor
+    
+    This is tranform input file to tensor
+
+    Args :
+        - device (str) : What computer use for deep learning
+    
+    Returns :
+        - inp_var (tensor) : transfomred input file tenssor
+    
+    Raise :
+        - Exception : If can't transfom input file!
+    """
     try:
         with open("src/data/custom_glove_word2vec_final.pkl", 'rb') as f:
             inp = pickle.load(f)
@@ -63,6 +128,20 @@ def _input_to_tensor(device):
 
 
 def _output_serialization(output):
+    """
+    Title : _output_serialization
+    
+    This is serialization for result to json
+
+    Args :
+        - output (list) : style grade list
+    
+    Returns :
+        - result (dict) : dictionary includes "first style" and "second style"
+    
+    Raise :
+        - Exception : If can't serialization!
+    """
     try:
         style_value = ["traditional","manish","feminine","ethnic","contemporary","natural","genderless","sporty","subculture","casual"]
 
@@ -77,6 +156,17 @@ def _output_serialization(output):
 
 
 def style_categorize_service(img_path:str):
+    """
+    Title : style_categorize_service
+    
+    This is main def for analyze img sytle!
+
+    Args :
+        - img_path (str) : saved img path
+    
+    Returns :
+        - result (dict) : dictionary includes "first style" and "second style"
+    """
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 

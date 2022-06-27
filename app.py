@@ -1,5 +1,6 @@
-import os
-
+"""
+This is app.py!
+"""
 from flask import Flask
 from flask_cors import CORS
 from logging.config import dictConfig

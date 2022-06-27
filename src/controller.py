@@ -1,3 +1,8 @@
+"""
+This is controller module!
+
+In here, Routeing urls and Save img in server
+"""
 from datetime import datetime
 
 from flask import request, Blueprint, Response, json
@@ -14,7 +19,14 @@ app = Blueprint('app', __name__, url_prefix='/')
 
 @app.route('/upload', methods=['GET'])
 def categorize():
+    """
+    Title : categorize
+    
+    This is getting img controller
 
+    URL : /upload
+    METHOD : GET
+    """
     ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
 
     img_path = request.args.get("img_path")
