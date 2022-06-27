@@ -14,7 +14,7 @@ def _init_model(device):
     try:
         model = gcn_resnet101(num_classes=10, t=0.03, adj_file="src/data/custom_adj_final.pkl", pretrained=False)
 
-        model.load_state_dict(torch.load("model_best.pth.tar", map_location=device).get("state_dict"))
+        model.load_state_dict(torch.load("resource/model_best.pth.tar", map_location=device).get("state_dict"))
 
         model.eval()
 
