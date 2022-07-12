@@ -1,6 +1,77 @@
 # F**ashion Recommend Mall Deep Learning Server**
 
+![twitter_header_photo_2](https://user-images.githubusercontent.com/66009926/176111438-92f1352f-c063-4e5e-a715-f8ef3cbe0757.png)
+
 ## Project Description
+
+This project categorizes the fashion image using the Pytorch model.
+
+First, If you enter a fashion image like the below request, Calculates the weight through the Pytorch model.
+```
+// Request example
+// img_link should be http not https!
+curl -X GET "{Deep Learing Server URL}/upload?img_path={img_link}"
+
+// Weight example
+{
+    "traditional" : 0.123,
+    "manish" : -0.123,
+    "feminine" : 1.123,
+    "ethnic" : 0,
+    "contemporary" : 0,
+    "natural" : 0,
+    "genderless" : 0,
+    "sporty" : 0,
+    "subculture" : 0,
+    "casual" : 0
+}
+```
+
+Second, It is sorted in the order of high weights.
+```
+// Weight example
+{
+    "feminine" : 1.123,
+    "traditional" : 0.123,
+    "manish" : -0.123,
+    "ethnic" : 0,
+    "contemporary" : 0,
+    "natural" : 0,
+    "genderless" : 0,
+    "sporty" : 0,
+    "subculture" : 0,
+    "casual" : 0
+}
+```
+
+Finally, It returns the two highest categories in the format below.
+```
+// Response example
+{
+    "first style" : "feminine",
+    "second style" : "traditional",
+}
+
+```
+
+Final Request & Response like below
+
+```
+// Request
+curl -X GET "{Deep Learing Server URL}/upload?img_path={img_link}"
+
+// Response
+{
+  "first style" : "",
+  "second style" : ""
+}
+```
+
+Got the Pytorch model from the below site
+
+Link: [AI Hube](https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=51)
+
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/66009926/178394650-24d7057d-a8f1-4f07-9d90-676d2fce192b.png">
 
 ---
 
