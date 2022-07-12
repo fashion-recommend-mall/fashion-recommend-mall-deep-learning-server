@@ -26,6 +26,7 @@ def categorize():
 
     URL : /upload
     METHOD : GET
+    QUERY : img_path from src (str)
     """
     ip_address = request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
 
